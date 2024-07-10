@@ -1,6 +1,6 @@
 {
-  "name": "exceljs",
-  "version": "4.4.0",
+  "name": "@chulei/exceljs",
+  "version": "4.4.0-beta1",
   "description": "Excel Workbook Manager - Read and Write xlsx and csv Files.",
   "private": false,
   "license": "MIT",
@@ -36,7 +36,7 @@
     "test:all": "npm run test:native && npm run test:es5",
     "test:native": "npm run test:full",
     "test:unit": "mocha --require spec/config/setup --require spec/config/setup-unit spec/unit --recursive",
-    "test:integration": "mocha --require spec/config/setup spec/integration --recursive",
+    "test:integration": "mocha --require spec/config/setup spec/integration/workbook/images.spec.js --recursive",
     "test:end-to-end": "mocha --require spec/config/setup spec/end-to-end --recursive",
     "test:browser": "if [ ! -f .disable-test-browser ]; then npm run build && npm run test:jasmine; fi",
     "test:jasmine": "grunt jasmine",
@@ -56,7 +56,8 @@
     "build": "grunt build",
     "install-build": "npm install && grunt build",
     "preversion": "npm run clean && npm run build && npm run test:version",
-    "postversion": "git push --no-verify && git push --tags --no-verify"
+    "postversion": "git push --no-verify && git push --tags --no-verify",
+    "push": "npm publish --registry=http://192.168.6.7:4873"
   },
   "husky": {
     "hooks": {
