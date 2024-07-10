@@ -289,5 +289,44 @@ describe('Workbook', () => {
           expect(Buffer.compare(imageData, image2.buffer)).to.equal(0);
         });
     });
+
+    it('read cell image DISPIMG', async () => {
+      const instance = new ExcelJS.Workbook();
+      const workbook = await instance.xlsx.read(
+        fs.createReadStream('./spec/integration/data/cellimages.xlsx')
+      );
+      const sheet = workbook.worksheets[0];
+      const images = [];
+      sheet.eachRow(row => {
+        row.eachCell(cell => {
+          const {formula} = cell;
+          if (formula && formula.includes('DISPIMG')) {
+            const image = instance.getCellImage(cell.value.result);
+            if (image) {
+              images.push(image);
+            }
+          }
+        });
+      });
+      expect(images.length).to.equal(4);
+    });
+
+    it('read cell image', async () => {
+      const instance = new ExcelJS.Workbook();
+      const workbook = await instance.xlsx.read(
+        fs.createReadStream('./spec/integration/data/cellimages.xlsx')
+      );
+      const sheet = workbook.worksheets[0];
+      const readImages = [];
+      sheet.eachRow(row => {
+        row.eachCell(cell => {
+          const image = workbook.getCellImage([sheet.id, cell.row, cell.col]);
+          if (image) {
+            readImages.push(...image);
+          }
+        });
+      });
+      expect(readImages.length).to.gt(10);
+    });
   });
 });

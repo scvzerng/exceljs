@@ -1084,7 +1084,7 @@ export type ConditionalFormattingRule = ExpressionRuleType | CellIsRuleType | To
 	| ContainsTextRuleType | TimePeriodRuleType | DataBarRuleType;
 
 
-export type RowValues = CellValue[] | { [key: string]: CellValue } | undefined | null; 
+export type RowValues = CellValue[] | { [key: string]: CellValue } | undefined | null;
 
 export interface ConditionalFormattingOptions {
 	ref: string;
@@ -1196,14 +1196,14 @@ export interface Worksheet {
 
 	/**
 	 * Tries to find and return row for row no, else undefined
-	 * 
+	 *
 	 * @param row The 1-index row number
 	 */
 	findRow(row: number): Row | undefined;
 
 	/**
 	 * Tries to find and return rows for row no start and length, else undefined
-	 * 
+	 *
 	 * @param start The 1-index starting row number
 	 * @param length The length of the expected array
 	 */
@@ -1778,6 +1778,8 @@ export class Workbook {
 	addImage(img: Image): number;
 
 	getImage(id: number): Image;
+
+	getCellImage(id: [number, number, number] | string): Buffer[]
 }
 
 export interface TableStyleProperties {
